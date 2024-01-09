@@ -12,14 +12,19 @@ Future<void> main() async {
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
+  static Color secondarySeedColor = Color(0xFFE0DFD5);
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      theme: ThemeData(
-        useMaterial3: true,
-      ),
       home: const SafeArea(
         child: Welcome(),
+      ),
+      theme: ThemeData(
+        colorScheme: ColorScheme.fromSwatch(
+          primarySwatch: Colors.deepOrange,
+          accentColor: secondarySeedColor,
+        ),
       ),
     );
   }
