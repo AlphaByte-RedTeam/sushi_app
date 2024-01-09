@@ -12,7 +12,7 @@ Future<void> main() async {
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
-  static Color secondarySeedColor = Color(0xFFE0DFD5);
+  static Color secondarySeedColor = const Color(0xFFE0DFD5);
 
   @override
   Widget build(BuildContext context) {
