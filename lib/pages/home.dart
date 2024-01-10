@@ -1,4 +1,6 @@
 import 'package:banner_carousel/banner_carousel.dart';
+import 'package:chips_choice/chips_choice.dart';
+import 'package:flexi_chip/flexi_chip.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -39,6 +41,15 @@ class _HomeState extends State<Home> {
   ];
   MultiSelectController selectLocationController = MultiSelectController();
   MultiSelectController selectBranchController = MultiSelectController();
+
+  List listMenu = [
+    'New Menu',
+    'Sashimi',
+    'Rolls',
+    'Ramen',
+    'Beverage',
+  ];
+  int indexSelectedMenu = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -411,6 +422,22 @@ class _HomeState extends State<Home> {
                           )
                         ],
                       ),
+                const Gap(16),
+                ChipsChoice.single(
+                  value: indexSelectedMenu,
+                  onChanged: (val) => setState(() => indexSelectedMenu = val),
+                  choiceItems: C2Choice.listFrom<int, String>(
+                    source: [
+                      'New Menu',
+                      'Sashimi',
+                      'Rolls',
+                      'Ramen',
+                      'Beverage',
+                    ],
+                    value: (idx, val) => idx,
+                    label: (idx, val) => val,
+                  ),
+                ),
               ],
             ),
           ),
