@@ -37,6 +37,8 @@ class _HomeState extends State<Home> {
     const ValueItem(label: 'Sunter', value: 'Sunter'),
     const ValueItem(label: 'Kelapa Gading', value: 'Kelapa Gading'),
   ];
+  MultiSelectController selectLocationController = MultiSelectController();
+  MultiSelectController selectBranchController = MultiSelectController();
 
   @override
   Widget build(BuildContext context) {
@@ -274,6 +276,7 @@ class _HomeState extends State<Home> {
                                                 0.5,
                                         child: MultiSelectDropDown(
                                           onOptionSelected: null,
+                                          controller: selectBranchController,
                                           options: listBranch,
                                           selectionType: SelectionType.single,
                                           dropdownHeight: MediaQuery.of(context)
@@ -345,6 +348,7 @@ class _HomeState extends State<Home> {
                                                 0.5,
                                         child: MultiSelectDropDown(
                                           onOptionSelected: null,
+                                          controller: selectLocationController,
                                           options: listAddress,
                                           selectionType: SelectionType.single,
                                           dropdownHeight: MediaQuery.of(context)
@@ -389,6 +393,7 @@ class _HomeState extends State<Home> {
                                                 0.5,
                                         child: MultiSelectDropDown(
                                           onOptionSelected: null,
+                                          controller: selectBranchController,
                                           options: listBranch,
                                           selectionType: SelectionType.single,
                                           dropdownHeight: MediaQuery.of(context)
