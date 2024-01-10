@@ -163,7 +163,7 @@ class _LoginState extends State<Login> {
                     Expanded(
                       child: ElevatedButton(
                         onPressed: () {
-                          log(emailController.text);
+                          log(emailController.text.toLowerCase());
                           log(passwordController.text);
                           _onSignIn();
                           Navigator.pushNamed(context, '/home');
