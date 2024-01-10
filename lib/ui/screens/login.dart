@@ -1,10 +1,12 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:flutter_signin_button/button_view.dart';
 import 'package:flutter_signin_button/flutter_signin_button.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:gap/gap.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
+import 'package:sushi_app/helper/supabase_helper.dart';
 
 class Login extends StatefulWidget {
   const Login({super.key});
@@ -15,6 +17,24 @@ class Login extends StatefulWidget {
 
 class _LoginState extends State<Login> {
   bool isCheck = false;
+  bool isPasswordVisible = false;
+
+  TextEditingController emailController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
+
+  Future<void> _onSignIn() async {
+    try {
+      await SupabaseHelper().client.auth.signInWithPassword(
+            email: emailController.text,
+            password: passwordController.text,
+          );
+      log('Login success');
+    } on AuthException catch (e) {
+      log(e.message.toString());
+    } catch (e) {
+      log(e.toString());
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -63,6 +83,7 @@ class _LoginState extends State<Login> {
                 Column(
                   children: [
                     TextFormField(
+                      controller: emailController,
                       keyboardType: TextInputType.emailAddress,
                       decoration: InputDecoration(
                         border: OutlineInputBorder(
@@ -75,8 +96,9 @@ class _LoginState extends State<Login> {
                     ),
                     const Gap(16),
                     TextFormField(
+                      controller: passwordController,
                       keyboardType: TextInputType.visiblePassword,
-                      obscureText: true,
+                      obscureText: isPasswordVisible ? false : true,
                       obscuringCharacter: '•',
                       decoration: InputDecoration(
                         border: OutlineInputBorder(
@@ -85,7 +107,16 @@ class _LoginState extends State<Login> {
                         labelText: 'Password',
                         hintText: 'Enter your password',
                         prefixIcon: const Icon(Icons.lock_outline),
-                        suffixIcon: const Icon(Icons.visibility_off_outlined),
+                        suffixIcon: IconButton(
+                          icon: isPasswordVisible
+                              ? const Icon(Icons.visibility_off_outlined)
+                              : const Icon(Icons.visibility_outlined),
+                          onPressed: () {
+                            setState(() {
+                              isPasswordVisible = !isPasswordVisible;
+                            });
+                          },
+                        ),
                       ),
                     ),
                     const Gap(16),
@@ -131,7 +162,12 @@ class _LoginState extends State<Login> {
                   children: [
                     Expanded(
                       child: ElevatedButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          log(emailController.text);
+                          log(passwordController.text);
+                          _onSignIn();
+                          Navigator.pushNamed(context, '/home');
+                        },
                         style: ElevatedButton.styleFrom(
                           padding: const EdgeInsets.symmetric(vertical: 16),
                         ),
