@@ -2,6 +2,7 @@ import 'package:banner_carousel/banner_carousel.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:multi_dropdown/multiselect_dropdown.dart';
 
 class Home extends StatefulWidget {
   const Home({super.key});
@@ -22,6 +23,19 @@ class _HomeState extends State<Home> {
   List<String> listDelivery = [
     'Take Away',
     'Delivery',
+  ];
+
+  List<ValueItem> listAddress = [
+    const ValueItem(label: 'Rumah', value: 'Rumah'),
+    const ValueItem(label: 'Kantor', value: 'Kantor'),
+    const ValueItem(label: 'Kampus', value: 'Kampus'),
+  ];
+  List<ValueItem> listBranch = [
+    const ValueItem(label: 'Koja', value: 'Koja'),
+    const ValueItem(label: 'UBM', value: 'UBM'),
+    const ValueItem(label: 'Pecenongan', value: 'Pecenongan'),
+    const ValueItem(label: 'Sunter', value: 'Sunter'),
+    const ValueItem(label: 'Kelapa Gading', value: 'Kelapa Gading'),
   ];
 
   @override
@@ -77,6 +91,8 @@ class _HomeState extends State<Home> {
           padding: const EdgeInsets.all(16.0),
           child: SingleChildScrollView(
             child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 BannerCarousel.fullScreen(
                   animation: true,
@@ -198,6 +214,198 @@ class _HomeState extends State<Home> {
                     ),
                   ),
                 ),
+                const Gap(16),
+                isTakeAway
+                    ? Column(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            isTakeAway
+                                ? 'Ambil dari cabang'
+                                : 'Dikirim ke alamat',
+                            style: GoogleFonts.comfortaa(
+                              fontSize: 24,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          const Gap(8),
+                          Container(
+                            decoration: BoxDecoration(
+                              border: Border.all(
+                                color: Colors.grey.withOpacity(0.5),
+                                width: 1,
+                              ),
+                              borderRadius: BorderRadius.circular(16),
+                            ),
+                            child: Padding(
+                              padding: const EdgeInsets.all(16),
+                              child: Column(
+                                children: [
+                                  Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.center,
+                                    children: [
+                                      Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          const Icon(
+                                            Icons.store,
+                                            color: Colors.deepOrange,
+                                          ),
+                                          const Gap(8),
+                                          Text(
+                                            'Cabang:',
+                                            style: GoogleFonts.comfortaa(
+                                              fontSize: 16,
+                                              fontWeight: FontWeight.w600,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                      SizedBox(
+                                        width:
+                                            MediaQuery.of(context).size.width *
+                                                0.5,
+                                        child: MultiSelectDropDown(
+                                          onOptionSelected: null,
+                                          options: listBranch,
+                                          selectionType: SelectionType.single,
+                                          dropdownHeight: MediaQuery.of(context)
+                                                  .size
+                                                  .height *
+                                              0.3,
+                                          showClearIcon: false,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ],
+                              ),
+                            ),
+                          )
+                        ],
+                      )
+                    : Column(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            isTakeAway
+                                ? 'Ambil dari cabang'
+                                : 'Dikirim ke alamat',
+                            style: GoogleFonts.comfortaa(
+                              fontSize: 24,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          const Gap(8),
+                          Container(
+                            decoration: BoxDecoration(
+                              border: Border.all(
+                                color: Colors.grey.withOpacity(0.5),
+                                width: 1,
+                              ),
+                              borderRadius: BorderRadius.circular(16),
+                            ),
+                            child: Padding(
+                              padding: const EdgeInsets.all(16),
+                              child: Column(
+                                children: [
+                                  Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.center,
+                                    children: [
+                                      Row(
+                                        children: [
+                                          const Icon(
+                                            Icons.location_on_outlined,
+                                            color: Colors.deepOrange,
+                                          ),
+                                          const Gap(8),
+                                          Text(
+                                            'Lokasi:',
+                                            style: GoogleFonts.comfortaa(
+                                              fontSize: 16,
+                                              fontWeight: FontWeight.w600,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                      SizedBox(
+                                        width:
+                                            MediaQuery.of(context).size.width *
+                                                0.5,
+                                        child: MultiSelectDropDown(
+                                          onOptionSelected: null,
+                                          options: listAddress,
+                                          selectionType: SelectionType.single,
+                                          dropdownHeight: MediaQuery.of(context)
+                                                  .size
+                                                  .height *
+                                              0.3,
+                                          showClearIcon: false,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                  const Gap(8),
+                                  Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.center,
+                                    children: [
+                                      Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          const Icon(
+                                            Icons.store,
+                                            color: Colors.deepOrange,
+                                          ),
+                                          const Gap(8),
+                                          Text(
+                                            'Cabang:',
+                                            style: GoogleFonts.comfortaa(
+                                              fontSize: 16,
+                                              fontWeight: FontWeight.w600,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                      SizedBox(
+                                        width:
+                                            MediaQuery.of(context).size.width *
+                                                0.5,
+                                        child: MultiSelectDropDown(
+                                          onOptionSelected: null,
+                                          options: listBranch,
+                                          selectionType: SelectionType.single,
+                                          dropdownHeight: MediaQuery.of(context)
+                                                  .size
+                                                  .height *
+                                              0.3,
+                                          showClearIcon: false,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ],
+                              ),
+                            ),
+                          )
+                        ],
+                      ),
               ],
             ),
           ),
