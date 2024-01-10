@@ -84,7 +84,7 @@ class _HomeState extends State<Home> {
                   banners: listBanners,
                   borderRadius: 8,
                   onTap: null,
-                  height: 200,
+                  height: 220,
                 ),
                 const Gap(16),
                 Container(
