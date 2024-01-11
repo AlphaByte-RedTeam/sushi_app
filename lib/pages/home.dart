@@ -440,54 +440,37 @@ class _HomeState extends State<Home> {
                 const Gap(16),
                 SingleChildScrollView(
                   scrollDirection: Axis.horizontal,
-                  child: Wrap(
-                    spacing: 16,
-                    direction: Axis.horizontal,
-                    children: [
-                      Menu(
-                        hasDiscount: false,
-                        normalPrice: 2000,
-                        sushiName: 'Salmon Maki',
-                        sushiRating: 4.9,
-                        sushiImage: 'assets/images/5.png',
-                      ),
-                      Menu(
-                        hasDiscount: false,
-                        normalPrice: 2000,
-                        sushiName: 'Salmon Maki',
-                        sushiRating: 4.9,
-                        sushiImage: 'assets/images/5.png',
-                      ),
-                    ],
+                  child: StreamBuilder(
+                    stream: _stream,
+                    builder: (context, snapshot) {
+                      if (!snapshot.hasData) {
+                        return const Center(
+                          child: CircularProgressIndicator(),
+                        );
+                      }
+                      final data = snapshot.data!;
+                      return ListView.separated(
+                        itemBuilder: (context, index) {
+                          return Wrap(
+                            direction: Axis.horizontal,
+                            children: [
+                              Menu(
+                                hasDiscount: data[index]['has_discount'],
+                                normalPrice: data[index]['sushi_price'],
+                                sushiName: data[index]['sushi_name'],
+                                sushiRating: data[index]['sushi_rating'],
+                                sushiImage: data[index]['sushi_image'],
+                              ),
+                            ],
+                          );
+                        },
+                        separatorBuilder: (context, index) => const Gap(16),
+                        itemCount: data.length,
+                        scrollDirection: Axis.horizontal,
+                      );
+                    },
                   ),
                 ),
-                // SingleChildScrollView(
-                //   scrollDirection: Axis.horizontal,
-                //   child: FutureBuilder(
-                //     future: _future,
-                //     builder: (context, snapshot) {
-                //       if (!snapshot.hasData) {
-                //         return const Center(
-                //           child: CircularProgressIndicator(),
-                //         );
-                //       }
-                //       final data = snapshot.data!;
-                //       return ListView.separated(
-                //         itemBuilder: (context, index) {
-                //           return Menu(
-                //             hasDiscount: data[index]['has_discount'],
-                //             normalPrice: data[index]['sushi_price'],
-                //             sushiName: data[index]['sushi_name'],
-                //             sushiRating: data[index]['sushi_rating'],
-                //             sushiImage: data[index]['sushi_image'],
-                //           );
-                //         },
-                //         separatorBuilder: (context, index) => const Gap(16),
-                //         itemCount: data.length,
-                //       );
-                //     },
-                //   ),
-                // ),
               ],
             ),
           ),
