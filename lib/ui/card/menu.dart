@@ -12,6 +12,7 @@ class Menu extends StatefulWidget {
     required this.sushiName,
     required this.sushiRating,
     required this.sushiImage,
+    this.onPressed,
   });
 
   final bool hasDiscount;
@@ -20,6 +21,7 @@ class Menu extends StatefulWidget {
   final String sushiName;
   final double sushiRating;
   final String sushiImage;
+  final void Function()? onPressed;
 
   @override
   State<Menu> createState() => _MenuState();
@@ -148,7 +150,7 @@ class _MenuState extends State<Menu> {
                       ),
                     ),
               ElevatedButton.icon(
-                onPressed: () {},
+                onPressed: onPressed,
                 icon: const Icon(Icons.add_shopping_cart),
                 label: Text(
                   'Add to Cart',
