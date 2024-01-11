@@ -3,7 +3,7 @@ import 'package:gap/gap.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:money_formatter/money_formatter.dart';
 
-class Menu extends StatefulWidget {
+class Menu extends StatelessWidget {
   const Menu({
     super.key,
     required this.hasDiscount,
@@ -12,7 +12,7 @@ class Menu extends StatefulWidget {
     required this.sushiName,
     required this.sushiRating,
     required this.sushiImage,
-    this.onPressed,
+    required this.onPressed,
   });
 
   final bool hasDiscount;
@@ -23,14 +23,9 @@ class Menu extends StatefulWidget {
   final String sushiImage;
   final void Function()? onPressed;
 
-  @override
-  State<Menu> createState() => _MenuState();
-}
-
-class _MenuState extends State<Menu> {
   MoneyFormatterOutput get fmfNormal {
     return MoneyFormatter(
-      amount: widget.normalPrice,
+      amount: normalPrice,
       settings: MoneyFormatterSettings(
         symbol: 'Rp',
         fractionDigits: 0,
@@ -42,7 +37,7 @@ class _MenuState extends State<Menu> {
 
   MoneyFormatterOutput get fmfDiscount {
     return MoneyFormatter(
-      amount: widget.discountPrice ?? 0,
+      amount: discountPrice ?? 0,
       settings: MoneyFormatterSettings(
         symbol: 'Rp',
         fractionDigits: 0,
@@ -81,7 +76,7 @@ class _MenuState extends State<Menu> {
                 child: SizedBox(
                   width: MediaQuery.of(context).size.width * 0.5,
                   child: Text(
-                    widget.sushiName,
+                    sushiName,
                     style: GoogleFonts.comfortaa(
                       fontWeight: FontWeight.bold,
                       fontSize: 24,
@@ -99,7 +94,7 @@ class _MenuState extends State<Menu> {
                   const Icon(Icons.star, color: Colors.orange),
                   const Gap(4),
                   Text(
-                    widget.sushiRating.toString(),
+                    sushiRating.toString(),
                     style: GoogleFonts.comfortaa(color: Colors.grey),
                   ),
                 ],
@@ -108,7 +103,7 @@ class _MenuState extends State<Menu> {
           ),
           const Gap(16),
           Image.asset(
-            widget.sushiImage,
+            sushiImage,
             width: MediaQuery.of(context).size.width * 0.7,
           ),
           const Gap(16),
@@ -116,7 +111,7 @@ class _MenuState extends State<Menu> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              widget.hasDiscount
+              hasDiscount
                   ? Column(
                       mainAxisAlignment: MainAxisAlignment.start,
                       crossAxisAlignment: CrossAxisAlignment.start,
