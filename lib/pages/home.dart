@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:multi_dropdown/multiselect_dropdown.dart';
+import 'package:sushi_app/helper/supabase_helper.dart';
+import 'package:sushi_app/ui/card/menu.dart';
 
 class Home extends StatefulWidget {
   const Home({super.key});
@@ -40,6 +42,9 @@ class _HomeState extends State<Home> {
   ];
   MultiSelectController selectLocationController = MultiSelectController();
   MultiSelectController selectBranchController = MultiSelectController();
+
+  final _stream = SupabaseHelper().fetchAndStreamTable('sushi');
+  final _future = SupabaseHelper().fetchFromTable('sushi');
 
   int indexSelectedMenu = 0;
 
@@ -95,6 +100,7 @@ class _HomeState extends State<Home> {
         child: Padding(
           padding: const EdgeInsets.all(16.0),
           child: SingleChildScrollView(
+            scrollDirection: Axis.vertical,
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -431,6 +437,57 @@ class _HomeState extends State<Home> {
                     label: (idx, val) => val,
                   ),
                 ),
+                const Gap(16),
+                SingleChildScrollView(
+                  scrollDirection: Axis.horizontal,
+                  child: Wrap(
+                    spacing: 16,
+                    direction: Axis.horizontal,
+                    children: [
+                      Menu(
+                        hasDiscount: false,
+                        normalPrice: 2000,
+                        sushiName: 'Salmon Maki',
+                        sushiRating: 4.9,
+                        sushiImage: 'assets/images/5.png',
+                      ),
+                      Menu(
+                        hasDiscount: false,
+                        normalPrice: 2000,
+                        sushiName: 'Salmon Maki',
+                        sushiRating: 4.9,
+                        sushiImage: 'assets/images/5.png',
+                      ),
+                    ],
+                  ),
+                ),
+                // SingleChildScrollView(
+                //   scrollDirection: Axis.horizontal,
+                //   child: FutureBuilder(
+                //     future: _future,
+                //     builder: (context, snapshot) {
+                //       if (!snapshot.hasData) {
+                //         return const Center(
+                //           child: CircularProgressIndicator(),
+                //         );
+                //       }
+                //       final data = snapshot.data!;
+                //       return ListView.separated(
+                //         itemBuilder: (context, index) {
+                //           return Menu(
+                //             hasDiscount: data[index]['has_discount'],
+                //             normalPrice: data[index]['sushi_price'],
+                //             sushiName: data[index]['sushi_name'],
+                //             sushiRating: data[index]['sushi_rating'],
+                //             sushiImage: data[index]['sushi_image'],
+                //           );
+                //         },
+                //         separatorBuilder: (context, index) => const Gap(16),
+                //         itemCount: data.length,
+                //       );
+                //     },
+                //   ),
+                // ),
               ],
             ),
           ),
