@@ -22,6 +22,13 @@ class SupabaseHelper {
     return response;
   }
 
+  Stream<List<Map<String, dynamic>>> fetchAndStreamTable(
+    String tableName,
+  ) {
+    final response = _client.from(tableName).stream(primaryKey: ['id']);
+    return response;
+  }
+
   Future<void> addToTable(
     String tableName,
     Map<String, dynamic> data,
