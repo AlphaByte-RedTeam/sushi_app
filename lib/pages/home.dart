@@ -461,6 +461,7 @@ class _HomeState extends State<Home> {
                                 sushiRating:
                                     data[index]['sushi_rating'].toDouble(),
                                 sushiImage: data[index]['sushi_image'],
+                                onPressed: () {},
                               ),
                             ],
                           );
