@@ -44,7 +44,6 @@ class _HomeState extends State<Home> {
   MultiSelectController selectBranchController = MultiSelectController();
 
   final _stream = SupabaseHelper().fetchAndStreamTable('sushi');
-  final _future = SupabaseHelper().fetchFromTable('sushi');
 
   int indexSelectedMenu = 0;
 
@@ -438,25 +437,26 @@ class _HomeState extends State<Home> {
                   ),
                 ),
                 const Gap(16),
-                SingleChildScrollView(
-                  scrollDirection: Axis.horizontal,
-                  child: StreamBuilder(
-                    stream: _stream,
-                    builder: (context, snapshot) {
-                      if (!snapshot.hasData) {
-                        return const Center(
-                          child: CircularProgressIndicator(),
-                        );
-                      }
-                      final data = snapshot.data!;
-                      return ListView.separated(
+                StreamBuilder(
+                  stream: _stream,
+                  builder: (context, snapshot) {
+                    if (!snapshot.hasData) {
+                      return const Center(
+                        child: CircularProgressIndicator(),
+                      );
+                    }
+                    final data = snapshot.data!;
+                    return SizedBox(
+                      height: MediaQuery.of(context).size.height * 0.4,
+                      child: ListView.separated(
                         itemBuilder: (context, index) {
                           return Wrap(
                             direction: Axis.horizontal,
                             children: [
                               Menu(
                                 hasDiscount: data[index]['has_discount'],
-                                normalPrice: data[index]['sushi_price'],
+                                normalPrice:
+                                    data[index]['sushi_price'].toDouble(),
                                 sushiName: data[index]['sushi_name'],
                                 sushiRating: data[index]['sushi_rating'],
                                 sushiImage: data[index]['sushi_image'],
@@ -467,9 +467,9 @@ class _HomeState extends State<Home> {
                         separatorBuilder: (context, index) => const Gap(16),
                         itemCount: data.length,
                         scrollDirection: Axis.horizontal,
-                      );
-                    },
-                  ),
+                      ),
+                    );
+                  },
                 ),
               ],
             ),
