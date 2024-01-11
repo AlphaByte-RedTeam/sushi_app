@@ -447,7 +447,7 @@ class _HomeState extends State<Home> {
                     }
                     final data = snapshot.data!;
                     return SizedBox(
-                      height: MediaQuery.of(context).size.height * 0.4,
+                      height: MediaQuery.of(context).size.height * 0.5,
                       child: ListView.separated(
                         itemBuilder: (context, index) {
                           return Wrap(
@@ -458,7 +458,8 @@ class _HomeState extends State<Home> {
                                 normalPrice:
                                     data[index]['sushi_price'].toDouble(),
                                 sushiName: data[index]['sushi_name'],
-                                sushiRating: data[index]['sushi_rating'],
+                                sushiRating:
+                                    data[index]['sushi_rating'].toDouble(),
                                 sushiImage: data[index]['sushi_image'],
                               ),
                             ],
