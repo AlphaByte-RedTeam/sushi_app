@@ -53,6 +53,7 @@ dependencies:
   test_api: ^0.6.1
   web: ^0.3.0
   web_socket_channel: ^2.4.0
+  money_formatter: ^0.0.5
 
 dev_dependencies:
   flutter_test:
