@@ -4,7 +4,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:money_formatter/money_formatter.dart';
 
 class Menu extends StatefulWidget {
-  Menu({
+  const Menu({
     super.key,
     required this.hasDiscount,
     required this.normalPrice,
