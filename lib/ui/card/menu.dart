@@ -3,7 +3,7 @@ import 'package:gap/gap.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:money_formatter/money_formatter.dart';
 
-class Menu extends StatelessWidget {
+class Menu extends StatefulWidget {
   Menu({
     super.key,
     required this.hasDiscount,
@@ -21,9 +21,14 @@ class Menu extends StatelessWidget {
   final double sushiRating;
   final String sushiImage;
 
+  @override
+  State<Menu> createState() => _MenuState();
+}
+
+class _MenuState extends State<Menu> {
   MoneyFormatterOutput get fmfNormal {
     return MoneyFormatter(
-      amount: normalPrice,
+      amount: widget.normalPrice,
       settings: MoneyFormatterSettings(
         symbol: 'Rp',
         fractionDigits: 0,
@@ -35,7 +40,7 @@ class Menu extends StatelessWidget {
 
   MoneyFormatterOutput get fmfDiscount {
     return MoneyFormatter(
-      amount: discountPrice ?? 0,
+      amount: widget.discountPrice ?? 0,
       settings: MoneyFormatterSettings(
         symbol: 'Rp',
         fractionDigits: 0,
@@ -74,7 +79,7 @@ class Menu extends StatelessWidget {
                 child: SizedBox(
                   width: MediaQuery.of(context).size.width * 0.5,
                   child: Text(
-                    sushiName,
+                    widget.sushiName,
                     style: GoogleFonts.comfortaa(
                       fontWeight: FontWeight.bold,
                       fontSize: 24,
@@ -92,7 +97,7 @@ class Menu extends StatelessWidget {
                   const Icon(Icons.star, color: Colors.orange),
                   const Gap(4),
                   Text(
-                    sushiRating.toString(),
+                    widget.sushiRating.toString(),
                     style: GoogleFonts.comfortaa(color: Colors.grey),
                   ),
                 ],
@@ -101,7 +106,7 @@ class Menu extends StatelessWidget {
           ),
           const Gap(16),
           Image.asset(
-            sushiImage,
+            widget.sushiImage,
             width: MediaQuery.of(context).size.width * 0.7,
           ),
           const Gap(16),
@@ -109,7 +114,7 @@ class Menu extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              hasDiscount
+              widget.hasDiscount
                   ? Column(
                       mainAxisAlignment: MainAxisAlignment.start,
                       crossAxisAlignment: CrossAxisAlignment.start,
