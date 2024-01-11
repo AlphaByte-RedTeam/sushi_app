@@ -166,7 +166,11 @@ class _LoginState extends State<Login> {
                           log(emailController.text.toLowerCase());
                           log(passwordController.text);
                           _onSignIn();
-                          Navigator.pushNamed(context, '/home');
+                          Navigator.pushNamedAndRemoveUntil(
+                            context,
+                            '/home',
+                            (route) => false,
+                          );
                         },
                         style: ElevatedButton.styleFrom(
                           padding: const EdgeInsets.symmetric(vertical: 16),
