@@ -58,7 +58,6 @@ class _HomeState extends State<Home> {
             icon: const Icon(Icons.shopping_cart_outlined),
             onPressed: () {},
             style: ButtonStyle(
-              foregroundColor: MaterialStateProperty.all<Color>(Colors.black),
               iconColor: MaterialStateColor.resolveWith(
                 (states) => Colors.deepOrange,
               ),
@@ -68,7 +67,6 @@ class _HomeState extends State<Home> {
             icon: const Icon(Icons.notifications_none_outlined),
             onPressed: () {},
             style: ButtonStyle(
-              foregroundColor: MaterialStateProperty.all<Color>(Colors.black),
               iconColor: MaterialStateColor.resolveWith(
                 (states) => Colors.deepOrange,
               ),
@@ -81,7 +79,6 @@ class _HomeState extends State<Home> {
             Drawer();
           },
           style: ButtonStyle(
-            foregroundColor: MaterialStateProperty.all<Color>(Colors.black),
             iconColor: MaterialStateColor.resolveWith(
               (states) => Colors.deepOrange,
             ),
