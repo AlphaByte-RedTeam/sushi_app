@@ -5,6 +5,7 @@ import 'package:gap/gap.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:multi_dropdown/multiselect_dropdown.dart';
 import 'package:sushi_app/helper/supabase_helper.dart';
+import 'package:sushi_app/pages/menu_details.dart';
 import 'package:sushi_app/ui/card/menu.dart';
 
 class Home extends StatefulWidget {
@@ -424,7 +425,9 @@ class _HomeState extends State<Home> {
                     source: [
                       'All',
                       'New Menu',
+                      'Paket',
                       'Sashimi',
+                      'Nigiri',
                       'Rolls',
                       'Ramen',
                       'Beverage',
@@ -458,9 +461,18 @@ class _HomeState extends State<Home> {
                                 sushiRating:
                                     data[index]['sushi_rating'].toDouble(),
                                 sushiImage: data[index]['sushi_image'],
-                                onPressed: () => Navigator.pushNamed(
+                                onPressed: () => Navigator.push(
                                   context,
-                                  '/menuDetails',
+                                  MaterialPageRoute(
+                                    builder: (context) => MenuDetails(
+                                      menuName: data[index]['sushi_name'],
+                                      menuImage: data[index]['sushi_image'],
+                                      category: data[index]['category'],
+                                      normalPrice:
+                                          data[index]['sushi_price'].toDouble(),
+                                      description: data[index]['description'],
+                                    ),
+                                  ),
                                 ),
                               ),
                             ],
