@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:sushi_app/pages/home.dart';
+import 'package:sushi_app/pages/menu_details.dart';
 import 'package:sushi_app/pages/welcome.dart';
 import 'package:sushi_app/ui/screens/login.dart';
 
@@ -26,6 +27,7 @@ class MyApp extends StatelessWidget {
       routes: {
         '/login': (context) => const Login(),
         '/home': (context) => const Home(),
+        '/menuDetails': (context) => const MenuDetails(),
       },
       theme: ThemeData(
         colorScheme: ColorScheme.fromSwatch(
