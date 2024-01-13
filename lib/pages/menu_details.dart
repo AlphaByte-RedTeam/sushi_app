@@ -1,7 +1,10 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:money_formatter/money_formatter.dart';
+import 'package:sushi_app/model/cart.dart';
 
 class MenuDetails extends StatefulWidget {
   const MenuDetails({
@@ -11,6 +14,7 @@ class MenuDetails extends StatefulWidget {
     required this.category,
     required this.description,
     required this.normalPrice,
+    required this.cart,
     this.discountPrice,
   });
 
@@ -20,6 +24,7 @@ class MenuDetails extends StatefulWidget {
   final double normalPrice;
   final double? discountPrice;
   final String description;
+  final Cart cart;
 
   @override
   State<MenuDetails> createState() => _MenuDetailsState();
@@ -53,6 +58,17 @@ class _MenuDetailsState extends State<MenuDetails> {
         decimalSeparator: ',',
       ),
     ).output;
+  }
+
+  void _addToCart() {
+    CartItem item = CartItem(
+      menuName: widget.menuName,
+      quantity: quantity,
+      normalPrice: widget.normalPrice,
+      discountPrice: widget.discountPrice,
+    );
+
+    widget.cart.items.add(item);
   }
 
   @override
@@ -254,6 +270,7 @@ class _MenuDetailsState extends State<MenuDetails> {
             Expanded(
               child: ElevatedButton.icon(
                 onPressed: () {
+                  _addToCart();
                   Navigator.pop(context);
                   ScaffoldMessenger.of(context).showSnackBar(
                     SnackBar(
