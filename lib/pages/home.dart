@@ -1,6 +1,7 @@
 import 'package:banner_carousel/banner_carousel.dart';
 import 'package:chips_choice/chips_choice.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:gap/gap.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:multi_dropdown/multiselect_dropdown.dart';
@@ -46,7 +47,17 @@ class _HomeState extends State<Home> {
 
   final _stream = SupabaseHelper().fetchAndStreamTable('sushi');
 
-  int indexSelectedMenu = 0;
+  List<String> categories = [
+    'All',
+    'New Menu',
+    'Paket',
+    'Sashimi',
+    'Nigiri',
+    'Rolls',
+    'Ramen',
+    'Beverage',
+  ];
+  String selectedCategory = 'All';
 
   @override
   Widget build(BuildContext context) {
@@ -419,19 +430,14 @@ class _HomeState extends State<Home> {
                       ),
                 const Gap(16),
                 ChipsChoice.single(
-                  value: indexSelectedMenu,
-                  onChanged: (val) => setState(() => indexSelectedMenu = val),
+                  value: categories.indexOf(selectedCategory),
+                  onChanged: (val) => setState(() {
+                    if (val >= 0 && val < categories.length) {
+                      selectedCategory = categories[val];
+                    }
+                  }),
                   choiceItems: C2Choice.listFrom<int, String>(
-                    source: [
-                      'All',
-                      'New Menu',
-                      'Paket',
-                      'Sashimi',
-                      'Nigiri',
-                      'Rolls',
-                      'Ramen',
-                      'Beverage',
-                    ],
+                    source: categories,
                     value: (idx, val) => idx,
                     label: (idx, val) => val,
                   ),
@@ -446,6 +452,38 @@ class _HomeState extends State<Home> {
                       );
                     }
                     final data = snapshot.data!;
+                    List filteredData = (selectedCategory == 'All')
+                        ? data
+                        : data
+                            .where((element) =>
+                                element['category'] == selectedCategory)
+                            .toList();
+                    if (filteredData.isEmpty) {
+                      return Center(
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            SvgPicture.asset(
+                              'assets/images/error.svg',
+                              width: 200,
+                            ),
+                            const Gap(16),
+                            SizedBox(
+                              width: MediaQuery.of(context).size.width * 0.8,
+                              child: Text(
+                                "We don't have any menu for this category. Please come back later.",
+                                style: GoogleFonts.comfortaa(
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.normal,
+                                ),
+                                textAlign: TextAlign.center,
+                              ),
+                            ),
+                          ],
+                        ),
+                      );
+                    }
                     return SizedBox(
                       height: MediaQuery.of(context).size.height * 0.5,
                       child: ListView.separated(
@@ -454,23 +492,28 @@ class _HomeState extends State<Home> {
                             direction: Axis.horizontal,
                             children: [
                               Menu(
-                                hasDiscount: data[index]['has_discount'],
-                                normalPrice:
-                                    data[index]['sushi_price'].toDouble(),
-                                sushiName: data[index]['sushi_name'],
-                                sushiRating:
-                                    data[index]['sushi_rating'].toDouble(),
-                                sushiImage: data[index]['sushi_image'],
+                                hasDiscount: filteredData[index]
+                                    ['has_discount'],
+                                normalPrice: filteredData[index]['sushi_price']
+                                    .toDouble(),
+                                sushiName: filteredData[index]['sushi_name'],
+                                sushiRating: filteredData[index]['sushi_rating']
+                                    .toDouble(),
+                                sushiImage: filteredData[index]['sushi_image'],
                                 onPressed: () => Navigator.push(
                                   context,
                                   MaterialPageRoute(
                                     builder: (context) => MenuDetails(
-                                      menuName: data[index]['sushi_name'],
-                                      menuImage: data[index]['sushi_image'],
-                                      category: data[index]['category'],
-                                      normalPrice:
-                                          data[index]['sushi_price'].toDouble(),
-                                      description: data[index]['description'],
+                                      menuName: filteredData[index]
+                                          ['sushi_name'],
+                                      menuImage: filteredData[index]
+                                          ['sushi_image'],
+                                      category: filteredData[index]['category'],
+                                      normalPrice: filteredData[index]
+                                              ['sushi_price']
+                                          .toDouble(),
+                                      description: filteredData[index]
+                                          ['description'],
                                     ),
                                   ),
                                 ),
@@ -479,7 +522,7 @@ class _HomeState extends State<Home> {
                           );
                         },
                         separatorBuilder: (context, index) => const Gap(16),
-                        itemCount: data.length,
+                        itemCount: filteredData.length,
                         scrollDirection: Axis.horizontal,
                       ),
                     );
