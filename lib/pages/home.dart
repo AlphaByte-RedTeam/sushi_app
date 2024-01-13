@@ -520,6 +520,7 @@ class _HomeState extends State<Home> {
                             direction: Axis.horizontal,
                             children: [
                               Menu(
+                                key: ValueKey(filteredData[index]['id']),
                                 hasDiscount: filteredData[index]
                                     ['has_discount'],
                                 normalPrice: filteredData[index]['sushi_price']
@@ -535,6 +536,7 @@ class _HomeState extends State<Home> {
                                   context,
                                   MaterialPageRoute(
                                     builder: (context) => MenuDetails(
+                                      key: ValueKey(filteredData[index]['id']),
                                       menuName: filteredData[index]
                                           ['sushi_name'],
                                       menuImage: filteredData[index]
