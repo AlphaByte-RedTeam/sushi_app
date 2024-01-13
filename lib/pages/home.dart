@@ -71,14 +71,14 @@ class _HomeState extends State<Home> {
       appBar: AppBar(
         actions: [
           IconButton(
-            icon: const Badge(
+            icon: Badge(
               label: Text(
-                '3',
-                style: TextStyle(
+                cart.items.length.toString(),
+                style: GoogleFonts.comfortaa(
                   color: Colors.white,
                 ),
               ),
-              child: Icon(
+              child: const Icon(
                 Icons.shopping_cart_outlined,
               ),
             ),
