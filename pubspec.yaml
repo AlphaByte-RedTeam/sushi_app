@@ -98,6 +98,8 @@ flutter:
     - assets/images/9.png
     - assets/images/10.png
     - assets/images/error.svg
+    - assets/images/bca.png
+    - assets/images/ovo.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
