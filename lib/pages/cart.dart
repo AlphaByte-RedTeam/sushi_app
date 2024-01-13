@@ -252,7 +252,26 @@ class _CartPageState extends State<CartPage> {
                                           children: [
                                             Expanded(
                                               child: ElevatedButton(
-                                                onPressed: () {},
+                                                onPressed: () {
+                                                  Navigator.pop(context);
+                                                  Navigator.pop(context);
+                                                  widget.cart.clearCart();
+                                                  ScaffoldMessenger.of(context)
+                                                      .showSnackBar(
+                                                    SnackBar(
+                                                      content: Text(
+                                                        'Order success!',
+                                                        style: GoogleFonts
+                                                            .comfortaa(),
+                                                      ),
+                                                      duration: const Duration(
+                                                        milliseconds: 1500,
+                                                      ),
+                                                      backgroundColor:
+                                                          Colors.green,
+                                                    ),
+                                                  );
+                                                },
                                                 style: ElevatedButton.styleFrom(
                                                   backgroundColor:
                                                       Colors.deepOrange,
