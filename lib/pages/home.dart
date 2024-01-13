@@ -496,6 +496,9 @@ class _HomeState extends State<Home> {
                                     ['has_discount'],
                                 normalPrice: filteredData[index]['sushi_price']
                                     .toDouble(),
+                                discountPrice: filteredData[index]
+                                        ['discount_price']
+                                    .toDouble(),
                                 sushiName: filteredData[index]['sushi_name'],
                                 sushiRating: filteredData[index]['sushi_rating']
                                     .toDouble(),

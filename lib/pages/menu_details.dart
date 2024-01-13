@@ -235,7 +235,7 @@ class _MenuDetailsState extends State<MenuDetails> {
                 Text(
                   widget.description,
                   style: GoogleFonts.comfortaa(
-                    fontSize: 12,
+                    fontSize: 14,
                     color: Colors.black.withOpacity(0.6),
                   ),
                 ),
