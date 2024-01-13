@@ -6,6 +6,7 @@ import 'package:gap/gap.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:multi_dropdown/multiselect_dropdown.dart';
 import 'package:sushi_app/helper/supabase_helper.dart';
+import 'package:sushi_app/pages/cart.dart';
 import 'package:sushi_app/pages/menu_details.dart';
 import 'package:sushi_app/ui/card/menu.dart';
 
@@ -67,8 +68,25 @@ class _HomeState extends State<Home> {
       appBar: AppBar(
         actions: [
           IconButton(
-            icon: const Icon(Icons.shopping_cart_outlined),
-            onPressed: () {},
+            icon: const Badge(
+              label: Text(
+                '3',
+                style: TextStyle(
+                  color: Colors.white,
+                ),
+              ),
+              child: Icon(
+                Icons.shopping_cart_outlined,
+              ),
+            ),
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const Cart(),
+                ),
+              );
+            },
             style: ButtonStyle(
               iconColor: MaterialStateColor.resolveWith(
                 (states) => Colors.deepOrange,
@@ -76,7 +94,17 @@ class _HomeState extends State<Home> {
             ),
           ),
           IconButton(
-            icon: const Icon(Icons.notifications_none_outlined),
+            icon: const Badge(
+              label: Text(
+                '7',
+                style: TextStyle(
+                  color: Colors.white,
+                ),
+              ),
+              child: Icon(
+                Icons.notifications_outlined,
+              ),
+            ),
             onPressed: () {},
             style: ButtonStyle(
               iconColor: MaterialStateColor.resolveWith(
@@ -88,7 +116,7 @@ class _HomeState extends State<Home> {
         leading: IconButton(
           icon: const Icon(Icons.menu_rounded),
           onPressed: () {
-            Drawer();
+            const Drawer();
           },
           style: ButtonStyle(
             iconColor: MaterialStateColor.resolveWith(
