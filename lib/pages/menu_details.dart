@@ -244,6 +244,56 @@ class _MenuDetailsState extends State<MenuDetails> {
           ),
         ),
       ),
+      bottomSheet: Padding(
+        padding: const EdgeInsets.symmetric(
+          vertical: 8,
+          horizontal: 16,
+        ),
+        child: Row(
+          children: [
+            Expanded(
+              child: ElevatedButton.icon(
+                onPressed: () {},
+                icon: const Icon(Icons.shopping_cart_outlined),
+                label: Text(
+                  'Add to Cart',
+                  style: GoogleFonts.comfortaa(),
+                ),
+                style: ButtonStyle(
+                  side: MaterialStateBorderSide.resolveWith(
+                    (states) => const BorderSide(
+                      color: Colors.deepOrange,
+                      width: 2,
+                    ),
+                  ),
+                  backgroundColor: MaterialStateColor.resolveWith(
+                    (states) => Colors.white,
+                  ),
+                ),
+              ),
+            ),
+            const Gap(16),
+            Expanded(
+              child: ElevatedButton.icon(
+                onPressed: () {},
+                icon: const Icon(
+                  Icons.shopping_cart_checkout,
+                  color: Colors.white,
+                ),
+                label: Text(
+                  'Buy Now',
+                  style: GoogleFonts.comfortaa(color: Colors.white),
+                ),
+                style: ButtonStyle(
+                  backgroundColor: MaterialStateColor.resolveWith(
+                    (states) => Colors.deepOrange,
+                  ),
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
     );
   }
 }
