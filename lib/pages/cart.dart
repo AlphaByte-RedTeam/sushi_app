@@ -29,9 +29,19 @@ class _CartPageState extends State<CartPage> {
     const ValueItem(label: 'BCA', value: 'BCA'),
   ];
 
+  double calcTotalPrice() {
+    double total = 0;
+    for (var item in widget.cart.items) {
+      total += item.normalPrice * item.quantity;
+    }
+    return total;
+  }
+
   MoneyFormatterOutput get fmfNormalTotal {
+    double total = calcTotalPrice();
+
     return MoneyFormatter(
-      amount: widget.totalPrice,
+      amount: total,
       settings: MoneyFormatterSettings(
         symbol: 'Rp',
         fractionDigits: 0,
@@ -67,8 +77,6 @@ class _CartPageState extends State<CartPage> {
       ).output;
     }
   }
-
-  int _selectedPayment = 0;
 
   @override
   Widget build(BuildContext context) {
