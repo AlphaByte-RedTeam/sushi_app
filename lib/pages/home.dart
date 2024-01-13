@@ -6,6 +6,7 @@ import 'package:gap/gap.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:multi_dropdown/multiselect_dropdown.dart';
 import 'package:sushi_app/helper/supabase_helper.dart';
+import 'package:sushi_app/model/cart.dart';
 import 'package:sushi_app/pages/cart.dart';
 import 'package:sushi_app/pages/menu_details.dart';
 import 'package:sushi_app/ui/card/menu.dart';
@@ -25,6 +26,8 @@ class _HomeState extends State<Home> {
   ];
 
   bool isTakeAway = true;
+
+  final Cart cart = Cart();
 
   List<String> listDelivery = [
     'Take Away',
@@ -83,7 +86,9 @@ class _HomeState extends State<Home> {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => const Cart(),
+                  builder: (context) => CartPage(
+                    cart: cart,
+                  ),
                 ),
               );
             },
@@ -547,6 +552,7 @@ class _HomeState extends State<Home> {
                                           .toDouble(),
                                       description: filteredData[index]
                                           ['description'],
+                                      cart: cart,
                                     ),
                                   ),
                                 ),
