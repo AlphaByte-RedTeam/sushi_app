@@ -12,6 +12,8 @@ class ItemCart extends StatefulWidget {
     this.discountPrice,
     required this.image,
     required this.quantity,
+    required this.onDecrease,
+    required this.onAdd,
   });
 
   final String label;
@@ -19,6 +21,8 @@ class ItemCart extends StatefulWidget {
   final double? discountPrice;
   final String image;
   int quantity;
+  void Function() onDecrease;
+  void Function() onAdd;
 
   @override
   State<ItemCart> createState() => _ItemCartState();
@@ -80,21 +84,7 @@ class _ItemCartState extends State<ItemCart> {
             Row(
               children: [
                 IconButton(
-                  onPressed: () => setState(() {
-                    if (widget.quantity > 1) {
-                      widget.quantity--;
-                    } else {
-                      cart.removeFromCart(
-                        CartItem(
-                          menuName: widget.label,
-                          quantity: widget.quantity,
-                          normalPrice: widget.normalPrice,
-                          image: widget.image,
-                          discountPrice: widget.discountPrice,
-                        ),
-                      );
-                    }
-                  }),
+                  onPressed: widget.onDecrease,
                   icon: const Icon(Icons.remove),
                   color: Colors.deepOrange,
                   style: ButtonStyle(
@@ -117,9 +107,7 @@ class _ItemCartState extends State<ItemCart> {
                 ),
                 const Gap(8),
                 IconButton(
-                  onPressed: () => setState(() {
-                    widget.quantity++;
-                  }),
+                  onPressed: widget.onAdd,
                   icon: const Icon(Icons.add),
                   color: Colors.deepOrange,
                   style: ButtonStyle(

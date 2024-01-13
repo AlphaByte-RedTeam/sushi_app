@@ -88,6 +88,8 @@ class _HomeState extends State<Home> {
                 MaterialPageRoute(
                   builder: (context) => CartPage(
                     cart: cart,
+                    normalPrice: cart.total,
+                    hasItem: cart.items.isNotEmpty,
                   ),
                 ),
               );

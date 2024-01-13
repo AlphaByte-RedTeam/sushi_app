@@ -22,6 +22,40 @@ class Cart {
       }
     }
   }
+
+  void clearCart() {
+    items = [];
+  }
+
+  double get total {
+    double total = 0;
+    for (var item in items) {
+      total += item.quantity * item.normalPrice;
+    }
+    return total;
+  }
+
+  double get discount {
+    double discount = 0;
+    for (var item in items) {
+      if (item.discountPrice != null) {
+        discount += item.quantity * item.discountPrice!;
+      }
+    }
+    return discount;
+  }
+
+  double get grandTotal {
+    return total - discount;
+  }
+
+  int get totalItems {
+    int totalItems = 0;
+    for (var item in items) {
+      totalItems += item.quantity;
+    }
+    return totalItems;
+  }
 }
 
 class CartItem {
