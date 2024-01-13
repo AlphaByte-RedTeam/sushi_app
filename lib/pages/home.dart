@@ -120,17 +120,17 @@ class _HomeState extends State<Home> {
             ),
           ),
         ],
-        leading: IconButton(
-          icon: const Icon(Icons.menu_rounded),
-          onPressed: () {
-            const Drawer();
-          },
-          style: ButtonStyle(
-            iconColor: MaterialStateColor.resolveWith(
-              (states) => Colors.deepOrange,
-            ),
-          ),
-        ),
+        // leading: IconButton(
+        //   icon: const Icon(Icons.menu_rounded),
+        //   onPressed: () {
+        //     const Drawer();
+        //   },
+        //   style: ButtonStyle(
+        //     iconColor: MaterialStateColor.resolveWith(
+        //       (states) => Colors.deepOrange,
+        //     ),
+        //   ),
+        // ),
         title: Text(
           'Shu Shie',
           style: GoogleFonts.comfortaa(
@@ -571,6 +571,61 @@ class _HomeState extends State<Home> {
                 ),
               ],
             ),
+          ),
+        ),
+      ),
+      drawer: SafeArea(
+        child: Drawer(
+          child: ListView(
+            children: [
+              DrawerHeader(
+                decoration: const BoxDecoration(
+                  color: Colors.deepOrange,
+                ),
+                child: Column(
+                  children: [
+                    const Icon(
+                      Icons.account_circle_sharp,
+                      size: 100,
+                      color: Colors.white,
+                    ),
+                    Text(
+                      'Jane Dae',
+                      style: GoogleFonts.comfortaa(
+                        fontSize: 18,
+                        color: Colors.white,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              ListTile(
+                title: Text(
+                  'Profile',
+                  style: GoogleFonts.comfortaa(
+                    color: Colors.deepOrange,
+                  ),
+                ),
+                onTap: () {},
+                leading: const Icon(
+                  Icons.person,
+                  color: Colors.deepOrange,
+                ),
+              ),
+              ListTile(
+                title: Text(
+                  'Setting',
+                  style: GoogleFonts.comfortaa(
+                    color: Colors.deepOrange,
+                  ),
+                ),
+                onTap: () {},
+                leading: const Icon(
+                  Icons.settings,
+                  color: Colors.deepOrange,
+                ),
+              ),
+            ],
           ),
         ),
       ),
