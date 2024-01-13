@@ -66,9 +66,10 @@ class _MenuDetailsState extends State<MenuDetails> {
       quantity: quantity,
       normalPrice: widget.normalPrice,
       discountPrice: widget.discountPrice,
+      image: widget.menuImage,
     );
 
-    widget.cart.items.add(item);
+    widget.cart.addToCart(item);
   }
 
   @override
