@@ -172,7 +172,7 @@ class _MenuDetailsState extends State<MenuDetails> {
                         vertical: 2,
                       ),
                       alignment: Alignment.center,
-                      width: MediaQuery.of(context).size.width * 0.35,
+                      width: MediaQuery.of(context).size.width * 0.4,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(99999),
                         border: Border.all(
