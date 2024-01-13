@@ -3,6 +3,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:gap/gap.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:money_formatter/money_formatter.dart';
+import 'package:multi_dropdown/multiselect_dropdown.dart';
 import 'package:sushi_app/model/cart.dart';
 import 'package:sushi_app/ui/card/item_cart.dart';
 
@@ -23,6 +24,11 @@ class CartPage extends StatefulWidget {
 }
 
 class _CartPageState extends State<CartPage> {
+  List<ValueItem> listPaymentOptions = [
+    const ValueItem(label: 'Ovo', value: 'Ovo'),
+    const ValueItem(label: 'BCA', value: 'BCA'),
+  ];
+
   MoneyFormatterOutput get fmfNormalTotal {
     return MoneyFormatter(
       amount: widget.totalPrice,
@@ -61,6 +67,8 @@ class _CartPageState extends State<CartPage> {
       ).output;
     }
   }
+
+  int _selectedPayment = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -127,97 +135,132 @@ class _CartPageState extends State<CartPage> {
                         showModalBottomSheet(
                             context: context,
                             builder: (context) {
-                              return Padding(
-                                padding: const EdgeInsets.all(16),
-                                child: Container(
-                                  height:
-                                      MediaQuery.of(context).size.height * 0.6,
-                                  width: MediaQuery.of(context).size.width,
-                                  color: Colors.white,
-                                  child: Column(
-                                    children: [
-                                      const Icon(
-                                        Icons.drag_handle_rounded,
-                                        color: Colors.grey,
-                                      ),
-                                      const Gap(16),
-                                      Text(
-                                        'Order Summary',
-                                        style: GoogleFonts.comfortaa(
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: 20,
+                              return Center(
+                                child: Padding(
+                                  padding: const EdgeInsets.all(16),
+                                  child: Container(
+                                    height: MediaQuery.of(context).size.height,
+                                    width: MediaQuery.of(context).size.width,
+                                    color: Colors.white,
+                                    child: Column(
+                                      children: [
+                                        const Icon(
+                                          Icons.drag_handle_rounded,
+                                          color: Colors.grey,
                                         ),
-                                      ),
-                                      const Gap(16),
-                                      Expanded(
-                                        child: ListView.separated(
-                                          separatorBuilder: (context, index) =>
-                                              const Gap(16),
-                                          itemBuilder: (context, index) {
-                                            return Row(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment
-                                                      .spaceBetween,
-                                              children: [
-                                                Text(
-                                                  '${widget.cart.items[index].menuName}     x${widget.cart.items[index].quantity}',
+                                        const Gap(16),
+                                        Text(
+                                          'Order Summary',
+                                          style: GoogleFonts.comfortaa(
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: 20,
+                                          ),
+                                        ),
+                                        const Gap(16),
+                                        Expanded(
+                                          child: ListView.separated(
+                                            separatorBuilder:
+                                                (context, index) =>
+                                                    const Gap(16),
+                                            itemBuilder: (context, index) {
+                                              return Row(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment
+                                                        .spaceBetween,
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.center,
+                                                children: [
+                                                  Column(
+                                                    crossAxisAlignment:
+                                                        CrossAxisAlignment
+                                                            .start,
+                                                    children: [
+                                                      Text(
+                                                        widget.cart.items[index]
+                                                            .menuName,
+                                                        style: GoogleFonts
+                                                            .comfortaa(
+                                                          fontSize: 14,
+                                                        ),
+                                                      ),
+                                                      Text(
+                                                        'Qty: ${widget.cart.items[index].quantity}x',
+                                                        style: GoogleFonts
+                                                            .comfortaa(
+                                                          fontSize: 12,
+                                                        ),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                  Text(
+                                                    getNormalPriceForItem(index)
+                                                        .symbolOnLeft
+                                                        .toString(),
+                                                    style:
+                                                        GoogleFonts.comfortaa(),
+                                                  ),
+                                                ],
+                                              );
+                                            },
+                                            itemCount: widget.cart.items.length,
+                                          ),
+                                        ),
+                                        const Gap(16),
+                                        MultiSelectDropDown(
+                                          onOptionSelected: null,
+                                          options: listPaymentOptions,
+                                          selectionType: SelectionType.single,
+                                          dropdownHeight: MediaQuery.of(context)
+                                                  .size
+                                                  .height *
+                                              0.3,
+                                          showClearIcon: false,
+                                          hint: 'Select payment options',
+                                        ),
+                                        const Gap(16),
+                                        Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            Text(
+                                              'Total: ',
+                                              style: GoogleFonts.comfortaa(
+                                                fontWeight: FontWeight.bold,
+                                                fontSize: 20,
+                                              ),
+                                            ),
+                                            Text(
+                                              fmfNormalTotal.symbolOnLeft
+                                                  .toString(),
+                                              style: GoogleFonts.comfortaa(
+                                                fontWeight: FontWeight.bold,
+                                                fontSize: 20,
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                        const Gap(16),
+                                        Row(
+                                          children: [
+                                            Expanded(
+                                              child: ElevatedButton(
+                                                onPressed: () {},
+                                                style: ElevatedButton.styleFrom(
+                                                  backgroundColor:
+                                                      Colors.deepOrange,
+                                                  foregroundColor: Colors.white,
+                                                ),
+                                                child: Text(
+                                                  'Pay Now',
                                                   style:
                                                       GoogleFonts.comfortaa(),
                                                 ),
-                                                Text(
-                                                  getNormalPriceForItem(index)
-                                                      .symbolOnLeft
-                                                      .toString(),
-                                                  style:
-                                                      GoogleFonts.comfortaa(),
-                                                ),
-                                              ],
-                                            );
-                                          },
-                                          itemCount: widget.cart.items.length,
+                                              ),
+                                            ),
+                                          ],
                                         ),
-                                      ),
-                                      Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                        children: [
-                                          Text(
-                                            'Total: ',
-                                            style: GoogleFonts.comfortaa(
-                                              fontWeight: FontWeight.bold,
-                                              fontSize: 20,
-                                            ),
-                                          ),
-                                          Text(
-                                            fmfNormalTotal.symbolOnLeft
-                                                .toString(),
-                                            style: GoogleFonts.comfortaa(
-                                              fontWeight: FontWeight.bold,
-                                              fontSize: 20,
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                      const Gap(16),
-                                      Row(
-                                        children: [
-                                          Expanded(
-                                            child: ElevatedButton(
-                                              onPressed: () {},
-                                              style: ElevatedButton.styleFrom(
-                                                backgroundColor:
-                                                    Colors.deepOrange,
-                                                foregroundColor: Colors.white,
-                                              ),
-                                              child: Text(
-                                                'Pay Now',
-                                                style: GoogleFonts.comfortaa(),
-                                              ),
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    ],
+                                      ],
+                                    ),
                                   ),
                                 ),
                               );
