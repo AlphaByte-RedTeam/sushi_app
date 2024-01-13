@@ -253,7 +253,17 @@ class _MenuDetailsState extends State<MenuDetails> {
           children: [
             Expanded(
               child: ElevatedButton.icon(
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.pop(context);
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(
+                      content: Text(
+                        'Added to Cart',
+                        style: GoogleFonts.comfortaa(),
+                      ),
+                    ),
+                  );
+                },
                 icon: const Icon(Icons.shopping_cart_outlined),
                 label: Text(
                   'Add to Cart',
