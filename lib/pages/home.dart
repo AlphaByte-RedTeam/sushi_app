@@ -10,6 +10,7 @@ import 'package:sushi_app/model/cart.dart';
 import 'package:sushi_app/pages/cart.dart';
 import 'package:sushi_app/pages/menu_details.dart';
 import 'package:sushi_app/pages/profile.dart';
+import 'package:sushi_app/pages/setting.dart';
 import 'package:sushi_app/ui/card/menu.dart';
 
 class Home extends StatefulWidget {
@@ -616,7 +617,14 @@ class _HomeState extends State<Home> {
                     color: Colors.deepOrange,
                   ),
                 ),
-                onTap: () {},
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => Setting(),
+                    ),
+                  );
+                },
                 leading: const Icon(
                   Icons.settings,
                   color: Colors.deepOrange,
