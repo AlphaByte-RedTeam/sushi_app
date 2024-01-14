@@ -120,17 +120,6 @@ class _HomeState extends State<Home> {
             ),
           ),
         ],
-        // leading: IconButton(
-        //   icon: const Icon(Icons.menu_rounded),
-        //   onPressed: () {
-        //     const Drawer();
-        //   },
-        //   style: ButtonStyle(
-        //     iconColor: MaterialStateColor.resolveWith(
-        //       (states) => Colors.deepOrange,
-        //     ),
-        //   ),
-        // ),
         title: Text(
           'Shu Shie',
           style: GoogleFonts.comfortaa(
