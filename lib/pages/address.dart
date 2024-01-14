@@ -48,12 +48,15 @@ class _AddressState extends State<Address> {
                       return const Center(child: CircularProgressIndicator());
                     }
                     final data = snapshot.data!;
-                    return ListView.separated(
-                      itemBuilder: (context, index) {
-                        // TODO: continue here
-                      },
-                      separatorBuilder: (context, index) => const Gap(16),
-                      itemCount: data.length,
+                    return SizedBox(
+                      height: MediaQuery.of(context).size.height,
+                      child: ListView.separated(
+                        itemBuilder: (context, index) {
+                          // TODO: continue here
+                        },
+                        separatorBuilder: (context, index) => const Gap(16),
+                        itemCount: data.length,
+                      ),
                     );
                   }),
                 ),
