@@ -142,6 +142,7 @@ class _CartPageState extends State<CartPage> {
                       onPressed: () {
                         showModalBottomSheet(
                             context: context,
+                            showDragHandle: true,
                             builder: (context) {
                               return Center(
                                 child: Padding(
@@ -152,11 +153,6 @@ class _CartPageState extends State<CartPage> {
                                     color: Colors.white,
                                     child: Column(
                                       children: [
-                                        const Icon(
-                                          Icons.drag_handle_rounded,
-                                          color: Colors.grey,
-                                        ),
-                                        const Gap(16),
                                         Text(
                                           'Order Summary',
                                           style: GoogleFonts.comfortaa(
