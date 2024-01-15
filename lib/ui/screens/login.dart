@@ -22,20 +22,6 @@ class _LoginState extends State<Login> {
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
 
-  Future<void> _onSignUp() async {
-    try {
-      await SupabaseHelper().client.auth.signUp(
-            password: passwordController.text,
-            email: emailController.text,
-          );
-      log('Sign up success');
-    } on AuthException catch (e) {
-      log(e.message.toString());
-    } catch (e) {
-      log(e.toString());
-    }
-  }
-
   Future<void> _onSignIn() async {
     try {
       await SupabaseHelper().client.auth.signInWithPassword(
