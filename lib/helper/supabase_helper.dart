@@ -64,9 +64,10 @@ class SupabaseHelper {
     String id,
     Map<String, dynamic> data,
   ) async {
-    final response = await _client.from(tableName).update(data).eq('id', id);
-    if (response.error != null) {
-      throw Exception(response.error!.message);
+    final response =
+        await _client.from(tableName).update(data).eq('id', id).select();
+    if (response.isEmpty) {
+      throw Exception(response);
     }
   }
 
