@@ -67,6 +67,16 @@ class _SettingState extends State<Setting> {
                 ),
                 ListTile(
                   title: Text(
+                    'Payment Method',
+                    style: GoogleFonts.comfortaa(fontWeight: FontWeight.w600),
+                  ),
+                  leading: const Icon(Icons.payment_rounded),
+                  onTap: () {},
+                  iconColor: Colors.deepOrange,
+                  textColor: Colors.deepOrange,
+                ),
+                ListTile(
+                  title: Text(
                     'Sign Out',
                     style: GoogleFonts.comfortaa(fontWeight: FontWeight.w600),
                   ),
