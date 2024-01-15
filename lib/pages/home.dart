@@ -543,8 +543,13 @@ class _HomeState extends State<Home> {
                                       normalPrice: filteredData[index]
                                               ['sushi_price']
                                           .toDouble(),
+                                      discountPrice: filteredData[index]
+                                              ['discount_price']
+                                          .toDouble(),
                                       description: filteredData[index]
                                           ['description'],
+                                      isDiscount: filteredData[index]
+                                          ['has_discount'],
                                       cart: cart,
                                     ),
                                   ),

@@ -12,6 +12,7 @@ class MenuDetails extends StatefulWidget {
     required this.category,
     required this.description,
     required this.normalPrice,
+    required this.isDiscount,
     required this.cart,
     this.discountPrice,
   });
@@ -21,6 +22,7 @@ class MenuDetails extends StatefulWidget {
   final String category;
   final double normalPrice;
   final double? discountPrice;
+  final bool isDiscount;
   final String description;
   final Cart cart;
 
@@ -145,15 +147,7 @@ class _MenuDetailsState extends State<MenuDetails> {
                   children: [
                     Column(
                       children: [
-                        Text(
-                          fmfNormal.symbolOnLeft,
-                          style: GoogleFonts.comfortaa(
-                            fontSize: 20,
-                            fontWeight: FontWeight.w600,
-                            color: Colors.black,
-                          ),
-                        ),
-                        widget.discountPrice != null
+                        widget.isDiscount
                             ? Column(
                                 mainAxisAlignment: MainAxisAlignment.start,
                                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -178,7 +172,14 @@ class _MenuDetailsState extends State<MenuDetails> {
                                   ),
                                 ],
                               )
-                            : const SizedBox(),
+                            : Text(
+                                fmfNormal.symbolOnLeft,
+                                style: GoogleFonts.comfortaa(
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.w600,
+                                  color: Colors.black,
+                                ),
+                              ),
                       ],
                     ),
                     Container(
