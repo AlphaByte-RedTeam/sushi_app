@@ -80,7 +80,247 @@ class _AddressState extends State<Address> {
                                       Icons.edit_outlined,
                                     ),
                                     onPressed: () {
-                                      // TODO: Continue the edit section
+                                      showModalBottomSheet(
+                                        context: context,
+                                        useSafeArea: true,
+                                        showDragHandle: true,
+                                        enableDrag: true,
+                                        builder: (context) =>
+                                            SingleChildScrollView(
+                                          child: Container(
+                                            height: MediaQuery.of(context)
+                                                    .size
+                                                    .height *
+                                                0.7,
+                                            width: MediaQuery.of(context)
+                                                .size
+                                                .width,
+                                            padding: const EdgeInsets.all(16),
+                                            child: Column(
+                                              children: [
+                                                Text(
+                                                  'Edit Alamat',
+                                                  style: GoogleFonts.comfortaa(
+                                                    fontWeight: FontWeight.bold,
+                                                    fontSize: 20,
+                                                  ),
+                                                ),
+                                                const Gap(16),
+                                                TextFormField(
+                                                  controller: labelController,
+                                                  decoration: InputDecoration(
+                                                    border: OutlineInputBorder(
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              8),
+                                                    ),
+                                                    labelText: 'Label Alamat *',
+                                                    hintText:
+                                                        'Contoh: Rumah, Kantor, dll',
+                                                  ),
+                                                ),
+                                                const Gap(16),
+                                                TextFormField(
+                                                  controller: addressController,
+                                                  decoration: InputDecoration(
+                                                    border: OutlineInputBorder(
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              8),
+                                                    ),
+                                                    labelText: 'Alamat *',
+                                                    hintText:
+                                                        'Contoh: Jl. ABC Lima Dasar 123 no. 1',
+                                                  ),
+                                                ),
+                                                const Gap(16),
+                                                TextFormField(
+                                                  controller:
+                                                      receiverController,
+                                                  decoration: InputDecoration(
+                                                    border: OutlineInputBorder(
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              8),
+                                                    ),
+                                                    labelText:
+                                                        'Nama Penerima *',
+                                                    hintText:
+                                                        'Contoh: Jane Doe',
+                                                  ),
+                                                ),
+                                                const Gap(16),
+                                                TextFormField(
+                                                  controller:
+                                                      phoneNumReceiverController,
+                                                  decoration: InputDecoration(
+                                                    border: OutlineInputBorder(
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              8),
+                                                    ),
+                                                    labelText:
+                                                        'No. Telp Penerima *',
+                                                    hintText:
+                                                        'Contoh: 6287712345678',
+                                                  ),
+                                                ),
+                                                const Gap(16),
+                                                const Text(
+                                                  'Jadikan Alamat Utama?',
+                                                  style: TextStyle(
+                                                    fontWeight: FontWeight.bold,
+                                                    fontSize: 16,
+                                                  ),
+                                                ),
+                                                const Gap(16),
+                                                RadioGroup(
+                                                  controller:
+                                                      isDefaultAddressController,
+                                                  values: const ["Yes", "No"],
+                                                  indexOfDefault: 0,
+                                                  orientation:
+                                                      RadioGroupOrientation
+                                                          .horizontal,
+                                                  onChanged: (value) => value ==
+                                                          'Yes'
+                                                      ? isDefaultAddress = true
+                                                      : isDefaultAddress =
+                                                          false,
+                                                ),
+                                                Row(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment
+                                                          .spaceBetween,
+                                                  children: [
+                                                    Expanded(
+                                                      child: ElevatedButton(
+                                                        onPressed: () =>
+                                                            Navigator.pop(
+                                                                context),
+                                                        style: ElevatedButton
+                                                            .styleFrom(
+                                                          backgroundColor:
+                                                              Colors.white,
+                                                          foregroundColor:
+                                                              Colors.black,
+                                                          side:
+                                                              const BorderSide(
+                                                            color: Colors
+                                                                .deepOrange,
+                                                          ),
+                                                        ),
+                                                        child: Text(
+                                                          'Cancel',
+                                                          style: GoogleFonts
+                                                              .comfortaa(
+                                                            fontWeight:
+                                                                FontWeight.bold,
+                                                            fontSize: 16,
+                                                            color: Colors.black,
+                                                          ),
+                                                        ),
+                                                      ),
+                                                    ),
+                                                    const Gap(16),
+                                                    Expanded(
+                                                      child: ElevatedButton(
+                                                        onPressed: () {
+                                                          try {
+                                                            if (labelController
+                                                                    .text
+                                                                    .isNotEmpty &&
+                                                                addressController
+                                                                    .text
+                                                                    .isNotEmpty &&
+                                                                receiverController
+                                                                    .text
+                                                                    .isNotEmpty &&
+                                                                phoneNumReceiverController
+                                                                    .text
+                                                                    .isNotEmpty) {
+                                                              SupabaseHelper()
+                                                                  .updateTable(
+                                                                'user_address',
+                                                                data[index]
+                                                                    ['id'],
+                                                                {
+                                                                  'label_address':
+                                                                      labelController
+                                                                          .text,
+                                                                  'address':
+                                                                      addressController
+                                                                          .text,
+                                                                  'receiver_name':
+                                                                      receiverController
+                                                                          .text,
+                                                                  'receiver_phone_number':
+                                                                      phoneNumReceiverController
+                                                                          .text,
+                                                                  'is_default_address':
+                                                                      isDefaultAddress,
+                                                                },
+                                                              );
+                                                              Navigator.pop(
+                                                                  context);
+                                                              labelController
+                                                                  .clear();
+                                                              addressController
+                                                                  .clear();
+                                                              receiverController
+                                                                  .clear();
+                                                              phoneNumReceiverController
+                                                                  .clear();
+                                                              log('insert success');
+                                                            } else {
+                                                              ScaffoldMessenger
+                                                                      .of(context)
+                                                                  .showSnackBar(
+                                                                SnackBar(
+                                                                  backgroundColor:
+                                                                      Colors
+                                                                          .red,
+                                                                  content: Text(
+                                                                    'Please fill all the fields',
+                                                                    style: GoogleFonts
+                                                                        .comfortaa(
+                                                                      color: Colors
+                                                                          .white,
+                                                                    ),
+                                                                  ),
+                                                                ),
+                                                              );
+                                                            }
+                                                          } catch (e) {
+                                                            log(e.toString());
+                                                          }
+                                                        },
+                                                        style: ElevatedButton
+                                                            .styleFrom(
+                                                          backgroundColor:
+                                                              Colors.deepOrange,
+                                                          foregroundColor:
+                                                              Colors.white,
+                                                        ),
+                                                        child: Text(
+                                                          'Save Address',
+                                                          style: GoogleFonts
+                                                              .comfortaa(
+                                                            fontWeight:
+                                                                FontWeight.bold,
+                                                            fontSize: 16,
+                                                            color: Colors.white,
+                                                          ),
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ],
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                        ),
+                                      );
                                     },
                                   )
                                 ],
@@ -127,14 +367,118 @@ class _AddressState extends State<Address> {
                                       ),
                                       IconButton(
                                         onPressed: () {
-                                          try {
-                                            SupabaseHelper().deleteFromTable(
-                                              'user_address',
-                                              data[index]['id'],
-                                            );
-                                          } catch (e) {
-                                            log(e.toString());
-                                          }
+                                          showDialog(
+                                            context: context,
+                                            useSafeArea: true,
+                                            builder: (context) => Dialog(
+                                              backgroundColor: Colors.white,
+                                              child: Container(
+                                                alignment: Alignment.center,
+                                                height: MediaQuery.of(context)
+                                                        .size
+                                                        .height *
+                                                    0.2,
+                                                padding:
+                                                    const EdgeInsets.all(16),
+                                                child: Column(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment.center,
+                                                  children: [
+                                                    Text(
+                                                      'Are you sure want to delete this address?',
+                                                      style:
+                                                          GoogleFonts.comfortaa(
+                                                        fontSize: 20,
+                                                        fontWeight:
+                                                            FontWeight.bold,
+                                                      ),
+                                                      textAlign:
+                                                          TextAlign.center,
+                                                    ),
+                                                    const Gap(16),
+                                                    Row(
+                                                      mainAxisAlignment:
+                                                          MainAxisAlignment
+                                                              .spaceBetween,
+                                                      children: [
+                                                        Expanded(
+                                                          child: ElevatedButton(
+                                                            onPressed: () =>
+                                                                Navigator.pop(
+                                                                    context),
+                                                            style:
+                                                                ElevatedButton
+                                                                    .styleFrom(
+                                                              backgroundColor:
+                                                                  Colors.white,
+                                                              foregroundColor:
+                                                                  Colors.black,
+                                                              side:
+                                                                  const BorderSide(
+                                                                color: Colors
+                                                                    .deepOrange,
+                                                              ),
+                                                            ),
+                                                            child: Text(
+                                                              'Cancel',
+                                                              style: GoogleFonts
+                                                                  .comfortaa(
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .bold,
+                                                                fontSize: 16,
+                                                                color: Colors
+                                                                    .black,
+                                                              ),
+                                                            ),
+                                                          ),
+                                                        ),
+                                                        const Gap(16),
+                                                        Expanded(
+                                                          child: ElevatedButton(
+                                                            onPressed: () {
+                                                              try {
+                                                                SupabaseHelper()
+                                                                    .deleteFromTable(
+                                                                  'user_address',
+                                                                  data[index]
+                                                                      ['id'],
+                                                                );
+                                                              } catch (e) {
+                                                                log(e
+                                                                    .toString());
+                                                              }
+                                                            },
+                                                            style:
+                                                                ElevatedButton
+                                                                    .styleFrom(
+                                                              backgroundColor:
+                                                                  Colors
+                                                                      .deepOrange,
+                                                              foregroundColor:
+                                                                  Colors.white,
+                                                            ),
+                                                            child: Text(
+                                                              'Delete',
+                                                              style: GoogleFonts
+                                                                  .comfortaa(
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .bold,
+                                                                fontSize: 16,
+                                                                color: Colors
+                                                                    .white,
+                                                              ),
+                                                            ),
+                                                          ),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  ],
+                                                ),
+                                              ),
+                                            ),
+                                          );
                                         },
                                         icon: const Icon(
                                           Icons.delete_outline_rounded,
