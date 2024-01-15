@@ -77,7 +77,7 @@ class _AddressState extends State<Address> {
                                   ),
                                   IconButton(
                                     icon: const Icon(
-                                      Icons.edit,
+                                      Icons.edit_outlined,
                                     ),
                                     onPressed: () {
                                       // TODO: Continue the edit section
@@ -137,7 +137,7 @@ class _AddressState extends State<Address> {
                                           }
                                         },
                                         icon: const Icon(
-                                          Icons.delete,
+                                          Icons.delete_outline_rounded,
                                         ),
                                       ),
                                     ],
@@ -174,13 +174,22 @@ class _AddressState extends State<Address> {
             context: context,
             useSafeArea: true,
             showDragHandle: true,
+            enableDrag: true,
             builder: (context) => SingleChildScrollView(
               child: Container(
-                height: MediaQuery.of(context).size.height,
+                height: MediaQuery.of(context).size.height * 0.7,
                 width: MediaQuery.of(context).size.width,
                 padding: const EdgeInsets.all(16),
                 child: Column(
                   children: [
+                    Text(
+                      'Tambah Alamat',
+                      style: GoogleFonts.comfortaa(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 20,
+                      ),
+                    ),
+                    const Gap(16),
                     TextFormField(
                       controller: labelController,
                       decoration: InputDecoration(
